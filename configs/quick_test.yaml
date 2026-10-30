@@ -1,0 +1,132 @@
+project_name: image-to-3d-shapenet
+runtime:
+  seed: 42
+  image_size: 128
+  batch_size: 1
+  mixed_precision: true
+  quick_test: true
+  device: auto
+dataset:
+  repo_id: ShapeNet/ShapeNetCore
+  category_name: chair
+  synset_id: "03001627"
+  zip_filename: "03001627.zip"
+  views_per_mesh: 2
+  max_meshes: 3
+  max_train_meshes: 2
+  max_val_meshes: 1
+  max_test_meshes: 1
+  normalization: unit_cube
+  max_degenerate_face_ratio: 0.05
+  max_mesh_file_mb: 20.0
+  max_archive_size_gb: 1.0
+  max_extracted_size_gb: 1.0
+  min_free_disk_gb: 0.1
+  max_archive_members: 1000
+paths:
+  data_dir: data
+  cache_dir: .cache
+  output_dir: outputs/quick_test
+export:
+  formats: [obj, glb, stl]
+render:
+  backend: auto
+  output_subdir: renders
+  max_render_meshes: 2
+  fov_degrees: 50.0
+  elevation_min_degrees: 20.0
+  elevation_max_degrees: 20.0
+  framing_margin: 1.15
+  transparent_background: true
+  random_background_train: false
+  background_rgb: [245, 245, 245]
+  ambient_light: 0.35
+  directional_light: 2.0
+  pyrender_platform: egl
+inference:
+  backend: auto
+  mode: standard
+  geometry_only: true
+  input_size: 256
+  foreground_ratio: 0.85
+  remove_background: true
+  allow_cpu: false
+  allow_download: false
+  seed: 42
+  triposr_mc_resolution: 128
+refinement:
+  encoder: lightweight
+  pretrained_encoder: false
+  freeze_encoder: false
+  allow_encoder_fallback: true
+  camera_convention: opengl
+  feature_dim: 16
+  hidden_dim: 32
+  num_blocks: 2
+  max_displacement: 0.05
+  sharp_edge_threshold_degrees: 35.0
+  sharp_edge_message_weight: 0.1
+  chamfer_samples: 64
+  sharp_edge_samples: 48
+  sharp_edge_sampling_weight: 2.0
+  loss_backend: native
+  lambda_chamfer: 1.0
+  lambda_normal: 0.1
+  lambda_silhouette: 0.1
+  lambda_edge: 0.5
+  lambda_laplacian: 0.02
+  lambda_displacement: 0.01
+  lambda_boundary: 0.05
+training:
+  epochs: 3
+  gradient_accumulation_steps: 1
+  learning_rate: 0.001
+  weight_decay: 0.0
+  gradient_clip_norm: 1.0
+  scheduler_patience: 1
+  scheduler_factor: 0.5
+  early_stopping_patience: 3
+  early_stopping_min_delta: 0.000001
+  surface_samples: 64
+  minimum_surface_samples: 16
+  max_vertices: 512
+  minimum_vertices: 8
+  image_resolution: 64
+  minimum_image_resolution: 32
+  quick_samples: 4
+  num_workers: 0
+  checkpoint_subdir: checkpoints
+  base_mesh_cache_subdir: base_mesh_cache
+evaluation:
+  max_test_samples: 2
+  surface_samples: 128
+  edge_samples: 64
+  sharp_edge_threshold_degrees: 35.0
+  fscore_thresholds: [0.01, 0.02]
+  output_subdir: evaluation
+  configurations: [base, refiner_full]
+  backend_filters: [cached]
+  comparison_samples: 2
+mesh_postprocess:
+  sharp_edge_threshold_degrees: 35.0
+  min_component_faces: 4
+  min_component_area_ratio: 0.01
+  fill_small_holes: true
+  max_hole_faces: 4
+  remesh: false
+  decimate: true
+  target_face_count: 12
+  decimation_max_collapses: 64
+  smooth: false
+app:
+  preset: Colab Free
+  output_subdir: gradio_sessions
+  default_backend: triposr
+  default_geometry_only: true
+  texture_min_vram_gb: 8.0
+  refinement_min_vram_gb: 8.0
+  max_upload_mb: 10.0
+  refinement_checkpoint: null
+  server_name: 0.0.0.0
+  server_port: 7860
+

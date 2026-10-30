@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "image-to-3d-shapenet"
+version = "0.1.0"
+description = "Colab-first scaffolding for single-image ShapeNetCore reconstruction."
+requires-python = ">=3.10"
+dependencies = [
+    "PyYAML==6.0.2",
+    "numpy==1.26.4",
+    "trimesh==5.2.0",
+    "huggingface_hub==1.11.0",
+    "Pillow==11.3.0",
+    "pyrender==0.1.45",
+    "gradio==6.14.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+addopts = "-ra"
+testpaths = ["tests"]
+pythonpath = ["src"]
+

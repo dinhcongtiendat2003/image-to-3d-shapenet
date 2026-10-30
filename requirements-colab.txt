@@ -1,0 +1,14 @@
+# Minimal default path: no custom CUDA extensions.
+# Keep Colab's preinstalled CUDA-matched torch/torchvision; refiner needs torch>=2.2.
+PyYAML==6.0.2
+numpy==1.26.4
+trimesh==5.2.0
+# Optional only: pymeshlab may be installed separately for manual advanced filters.
+# The default repair/export pipeline never requires it.
+huggingface_hub==1.11.0
+Pillow==11.3.0
+pyrender==0.1.45
+gradio==6.14.0
+# CPU background removal; model-specific backends remain optional.
+rembg[cpu]==2.0.67
+

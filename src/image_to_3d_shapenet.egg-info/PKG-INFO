@@ -1,0 +1,14 @@
+Metadata-Version: 2.4
+Name: image-to-3d-shapenet
+Version: 0.1.0
+Summary: Colab-first scaffolding for single-image ShapeNetCore reconstruction.
+Requires-Python: >=3.10
+License-File: LICENSE
+License-File: NOTICE.md
+Requires-Dist: PyYAML==6.0.2
+Requires-Dist: numpy==1.26.4
+Requires-Dist: trimesh==5.2.0
+Requires-Dist: huggingface_hub==1.11.0
+Requires-Dist: Pillow==11.3.0
+Requires-Dist: pyrender==0.1.45
+Dynamic: license-file
